@@ -1,0 +1,48 @@
+﻿<scene version="2.0.0">
+    <integrator type="path">
+    </integrator>
+
+    <!-- Instantiate a perspective camera with 45 degrees field of view -->
+    <sensor type="perspective">
+        <!-- Rotate the camera around the Y axis by 180 degrees -->
+        <transform name="to_world">
+            <rotate y="1" angle="0"/>
+            <translate x="0" y="0.1" z="-0.5"/>
+        </transform>
+        <float name="fov" value="45"/>
+
+        <!-- Render with 32 samples per pixel using a basic
+             independent sampling strategy -->
+        <sampler type="independent">
+            <integer name="sample_count" value="32"/>
+        </sampler>
+
+        <!-- Generate an EXR image at HD resolution -->
+        <film type="hdrfilm">
+            <integer name="width" value="1920"/>
+            <integer name="height" value="1080"/>
+        </film>
+    </sensor>
+
+    <!-- Add a dragon mesh made of rough glass (stored as OBJ file) -->
+    <shape type="ply">
+        <string name="filename" value="bunny2.ply"/>
+
+        <bsdf type="diffuse">
+            <rgb name="reflectance" value="0.2, 0.25, 0.8"/>
+        </bsdf>
+
+    </shape>
+
+
+
+    <emitter type="point">
+        <spectrum name="intensity" value="10"/>
+        <point name="position" x="0" y="0" z="-2"/>
+    </emitter>
+
+    <emitter type="envmap">
+        <string name="filename" value="emitter_envmap_example.jpg"/>
+        <float name = "scale" value ="10"/>
+    </emitter>
+</scene>
